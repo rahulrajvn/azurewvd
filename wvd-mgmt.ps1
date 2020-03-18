@@ -1,18 +1,7 @@
-##Azure AD ID   a86bc255-9bb7-4ee8-b30a-51fba84872aa
-##Azure Subscription ID   e33f0471-ef78-4f7e-97cf-fe9efebf11e0
-##
-
-##import module 
-Import-Module -Name Microsoft.RDInfra.RDPowerShell
-
-##log into tenant
-Add-RdsAccount -DeploymentUrl "https://rdbroker.wvd.microsoft.com"
-
-
-Connect-AzureAD -Confirm
-
-
-Add-RdsAccount -Verbose -s
+﻿
+##Login to Azure
+$brokerurl = "https://rdbroker.wvd.microsoft.com"
+Add-RdsAccount -DeploymentUrl $brokerurl
 
 
 ##get rds wvd tenent
@@ -32,14 +21,49 @@ Get-RdsAppGroup -TenantName "wvd-adf-demo" -HostPoolName "wvdhp"
 
 
 ##to remove appgrp from hostpool
-Remove-RdsAppGroup -TenantName "adfolks-wvdtest-tenant" -HostPoolName "wvd-HostPool" -Name "Desktop Application Group"
+Remove-RdsAppGroup -TenantName "wvdadtenant" -HostPoolName "hostpool2app" -Name "remoteapps"
 
 ##to remove server from a host pool
-Remove-RdsSessionhost -TenantName "adfolks-wvdtest-tenant" -HostPoolName "contosoHostPool" -Name "sh1.contoso.com"
+Remove-RdsSessionhost -TenantName "wvdadtenant" -HostPoolName "hostpool1" -Name "hostpool1-1.adfolks.com"
 
 
 ##to remove host  pool from a tenant
-Remove-RdsHostPool -TenantName "adfolks-wvdtest-tenant" -Name "wvd-HostPool"
+Remove-RdsHostPool -TenantName "wvdadtenant" -Name "hostpool1"
+
+##admin access to the second person
+New-RdsRoleAssignment -TenantName wvdadtenantt -SignInName rahul@adfolks.com -RoleDefinitionName "RDS Owner"
+
+#List the RDS Session
+Get-RdsUserSession -TenantName "wvdadtenant" -HostPoolName "hostpool1"
+
+#disconnect the user session
+Disconnect-RdsUserSession -TenantName "wvdadtenant" -HostPoolName "hostpool1" -SessionHostName "hostpool1-1.adfolks.com" -SessionId 3
+
+#initiate user sign off
+Invoke-RdsUserSessionLogoff -TenantName "wvdadtenant" -HostPoolName "hostpool1" -SessionHostName "hostpool1-1.adfolks.com" -SessionId 3
+
+#Remove the use session based on username
+Get-RdsUserSession -TenantName "wvdadtenant" -HostPoolName "hostpool1" | where { $_.UserPrincipalName -eq "rahul@adfolks.com" } | Invoke-RdsUserSessionLogoff -NoUserPrompt
 
 
- 
+
+#Remove RDS Tenant
+Remove-RdsTenant -Name "wvdadtenant"
+
+
+Add-RdsAppGroupUser wvd-adf-demo wvdhp "Desktop Application Group" -UserPrincipalName arathy.r@adfolks.com
+
+
+
+
+net use x: \\wvdadffileshare.file.core.windows.net\wvd-adf-prf "vHo4P8F+7JyUQzIuXKr6O/XCg0bXuIS4DdDI0X73RWYHAEqduWml6skG0piehymUddQy052gT8CgRswj2YTMOg==" /user:Azure\wvdadffileshare
+
+
+
+
+
+icacls x: /grant rahul@adfolks.com:f
+
+
+
+
