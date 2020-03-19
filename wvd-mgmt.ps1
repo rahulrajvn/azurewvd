@@ -46,6 +46,15 @@ Invoke-RdsUserSessionLogoff -TenantName "wvdadtenant" -HostPoolName "hostpool1" 
 Get-RdsUserSession -TenantName "wvdadtenant" -HostPoolName "hostpool1" | where { $_.UserPrincipalName -eq "rahul@adfolks.com" } | Invoke-RdsUserSessionLogoff -NoUserPrompt
 
 
+##to get the appgroups attached to a host pool
+Get-RdsAppGroup -TenantName "wvd-adf-demo" -HostPoolName "wvdhp"
+
+##to remove appgrp from hostpool
+Remove-RdsAppGroup -TenantName "wvdadtenant" -HostPoolName "hostpool1" -Name "Desktop Application Group"
+
+
+
+
 
 #Remove RDS Tenant
 Remove-RdsTenant -Name "wvdadtenant"
@@ -55,14 +64,19 @@ Add-RdsAppGroupUser wvd-adf-demo wvdhp "Desktop Application Group" -UserPrincipa
 
 
 
-
-net use x: \\wvdadffileshare.file.core.windows.net\wvd-adf-prf "vHo4P8F+7JyUQzIuXKr6O/XCg0bXuIS4DdDI0X73RWYHAEqduWml6skG0piehymUddQy052gT8CgRswj2YTMOg==" /user:Azure\wvdadffileshare
-
+https://docs.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-domain-service-enable
 
 
 
 
-icacls x: /grant rahul@adfolks.com:f
+
+
+
+
+
+
+
+
 
 
 

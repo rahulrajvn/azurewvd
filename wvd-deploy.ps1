@@ -29,34 +29,61 @@ New-RdsRegistrationInfo -TenantName wvd-adf-demo -HostPoolName wvdhp -Expiration
 https://docs.microsoft.com/en-us/azure/virtual-desktop/create-host-pools-powershell#register-the-virtual-machines-to-the-windows-virtual-desktop-host-pool
 
 
-
-
 ## List the hostpools inside a tenant 
 Get-RdsHostPool -TenantName "wvd-adf-demo"
+
 
 
 ## List the servers inside a hostpool
 Get-RdsSessionHost -TenantName "wvd-adf-demo" -HostPoolName "wvdhp"
 
 
+
 ## List the appgroups attached to a host pool
 Get-RdsAppGroup -TenantName "wvd-adf-demo" -HostPoolName "wvdhp"
 
 
-
-
-
-
 ## Add Users to Default Remote Desktop Group.
-Add-RdsAppGroupUser -TenantName wvd-adf-demo -HostPoolName wvdhp -AppGroupName "Desktop Application Group" -UserPrincipalName roletest@adfolks.com
+Add-RdsAppGroupUser -TenantName wvd-adf-demo -HostPoolName wvdhp -AppGroupName "Desktop Application Group" -UserPrincipalName arathy.r@adfolks.com
+
+
+Now we will be able to login to WVD web URL with web URL or Clients.
 
 
 
 
+#Setting up the Profile Share. 
+## Create Azure Storage Account 
+## Create Azure Fileshare
+## Provide SMB Contributor Access to WVDuser groups
+## Enable Azure Active Directory Domain Services Authentication for the Storage account. 
+## Mount the Fileshare to a Domain Joined Machines With Storage Keys(Need to mount using storage keys not AD Credentails for managig the NTFS permissions)
+       To configure NTFS with superuser permissions, you must mount the share 
+       by using your storage account key from your domain-joined VM. 
+       Follow the instructions in the next section to mount an 
+       Azure file share from the command prompt and to configure NTFS permissions accordingly.
+
+## Provide the Following Permissions at the root directory of the file share
+      CREATOR OWNER	           Subfolders and Files Only	        Full Control
+      Administrator	           This Folder, Subfolders and Files	Modify
+      Users	                   This Folder Only	                    Modify
+      Users\Group	           This Folder Only	                    Modify
+## File Permission. 
+https://vuzion.cloud/latest-news/fslogix-improving-the-user-profile-experience-for-windows-virtual-desktop-wvd
 
 
 
+## Enabling 
+https://aka.ms/fslogix_download
 
+
+       Connect to the virtual machine with the credentials you provided when creating the virtual machine.
+       Launch an internet browser and navigate to this link to download the FSLogix agent.
+       Navigate to either \\Win32\Release or \\X64\Release in the .zip file and run FSLogixAppsSetup to install the FSLogix agent. To learn more about how to install FSLogix, see Download and install FSLogix.
+       Navigate to Program Files > FSLogix > Apps to confirm the agent installed.
+       From the start menu, run RegEdit as an administrator. Navigate to Computer\HKEY_LOCAL_MACHINE\software\FSLogix.
+       Create a key named Profiles.
+       Create the following values for the Profiles key:
 
 
 
