@@ -65,7 +65,7 @@ Add-RdsAppGroupUser -TenantName wvd-adf-demo -HostPoolName wvdhp -AppGroupName "
 
 ## Provide the Following Permissions at the root directory of the file share
        CREATOR OWNER               Subfolders and Files Only	              Modify
-       Administrator	        This Folder, Subfolders and Files	       Full Control
+       Administrator	              This Folder, Subfolders and Files	       Full Control
        Users	                     This Folder Only                          Modify
        Users\Group	              This Folder Only	                     Modify
 
