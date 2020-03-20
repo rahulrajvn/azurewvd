@@ -64,17 +64,17 @@ Now we will be able to login to WVD web URL with web URL or Clients.
        Azure file share from the command prompt and to configure NTFS permissions accordingly.
 
 ## Provide the Following Permissions at the root directory of the file share
-      CREATOR OWNER	           Subfolders and Files Only	        Full Control
-      Administrator	           This Folder, Subfolders and Files	Modify
-      Users	                   This Folder Only	                    Modify
-      Users\Group	           This Folder Only	                    Modify
+       CREATOR OWNER               Subfolders and Files Only	              Full Control
+       Administrator	              This Folder, Subfolders and Files	       Modify
+       Users	                     This Folder Only                          Modify
+       Users\Group	              This Folder Only	                     Modify
 ## File Permission. 
-https://vuzion.cloud/latest-news/fslogix-improving-the-user-profile-experience-for-windows-virtual-desktop-wvd
+       https://vuzion.cloud/latest-news/fslogix-improving-the-user-profile-experience-for-windows-virtual-desktop-wvd
 
 
 
-## Enabling 
-https://aka.ms/fslogix_download
+## Enabling Fslogic for Shared Profiles in Azure Files
+       https://aka.ms/fslogix_download
 
 
        Connect to the virtual machine with the credentials you provided when creating the virtual machine.
@@ -84,16 +84,14 @@ https://aka.ms/fslogix_download
        From the start menu, run RegEdit as an administrator. Navigate to Computer\HKEY_LOCAL_MACHINE\software\FSLogix.
        Create a key named Profiles.
        Create the following values for the Profiles key:
-
-
-Enabled                                   DWORD                        1
-VHDLocations                              Multi-String Value            \\wvdadfshare.file.core.windows.net\wvdprfshare 
-DeleteLocalProfileWhenVHDShouldApply      DWORD                        1: delete local profile if exists and matches the profile being loaded from VHD
-VolumeType                                REG_SZ                       vhd
-RebootOnUserLogoff DWORD  0 means, Take no action
-PreventLoginWithTempProfile DWORD Data values and use If set to 1 Profile Container will load FRXShell if its determined a temp profile has been created. The user will receive the FRXShell prompt - default prompt to call support, and the users only option will be to sign out
-ConcurrentUserSessions DWORD 0: dont handle concurrent sessions
-FlipFlopProfileDirectoryName   DWORD When set to ‘1’ the SID folder is created as “%username%%sid%” instead of the default “%sid%%username%”. This setting has the same effect as setting SIDDirNamePattern = “%username%%sid%” and SIDDirNameMatch = “%username%%sid%”.
+              Enabled                                   DWORD                       1 : Enables the Fslogic Profiles
+              VHDLocations                              Multi-String Value          \\wvdadfshare.file.core.windows.net\wvdprfshare : Enter the File share path with out quotes
+              DeleteLocalProfileWhenVHDShouldApply      DWORD                       1 : delete local profile if exists and matches the profile being loaded from VHD
+              VolumeType                                REG_SZ                      vhd
+              RebootOnUserLogoff                        DWORD                       0 : means, Take no action
+              PreventLoginWithTempProfile               DWORD                       1 : Data values and use If set to 1 Profile Container will load FRXShell if its determined a temp profile has been created. The user will receive the FRXShell prompt - default prompt to call support, and the users only option will be to sign out
+              ConcurrentUserSessions                    DWORD                       0 : dont handle concurrent sessions
+              FlipFlopProfileDirectoryName              DWORD                       1 : When set to ‘1’ the SID folder is created as “%username%%sid%” instead of the default “%sid%%username%”. This setting has the same effect as setting SIDDirNamePattern = “%username%%sid%” and SIDDirNameMatch = “%username%%sid%”.
 
 
 
