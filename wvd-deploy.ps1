@@ -86,6 +86,14 @@ https://aka.ms/fslogix_download
        Create the following values for the Profiles key:
 
 
+Enabled                                   DWORD                        1
+VHDLocations                              Multi-String Value            \\wvdadfshare.file.core.windows.net\wvdprfshare 
+DeleteLocalProfileWhenVHDShouldApply      DWORD                        1: delete local profile if exists and matches the profile being loaded from VHD
+VolumeType                                REG_SZ                       vhd
+RebootOnUserLogoff DWORD  0 means, Take no action
+PreventLoginWithTempProfile DWORD Data values and use If set to 1 Profile Container will load FRXShell if its determined a temp profile has been created. The user will receive the FRXShell prompt - default prompt to call support, and the users only option will be to sign out
+ConcurrentUserSessions DWORD 0: dont handle concurrent sessions
+FlipFlopProfileDirectoryName   DWORD When set to ‘1’ the SID folder is created as “%username%%sid%” instead of the default “%sid%%username%”. This setting has the same effect as setting SIDDirNamePattern = “%username%%sid%” and SIDDirNameMatch = “%username%%sid%”.
 
 
 
