@@ -47,7 +47,7 @@ Get-RdsAppGroup -TenantName "wvd-adf-demo" -HostPoolName "wvdhp"
 Add-RdsAppGroupUser -TenantName wvd-adf-demo -HostPoolName wvdhp -AppGroupName "Desktop Application Group" -UserPrincipalName arathy.r@adfolks.com
 
 
-Now we will be able to login to WVD web URL with web URL or Clients.
+## Now we will be able to login to WVD web URL with web URL or Clients.
 
 
 
@@ -64,14 +64,10 @@ Now we will be able to login to WVD web URL with web URL or Clients.
        Azure file share from the command prompt and to configure NTFS permissions accordingly.
 
 ## Provide the Following Permissions at the root directory of the file share
-       CREATOR OWNER               Subfolders and Files Only	              Full Control
-       Administrator	              This Folder, Subfolders and Files	       Modify
+       CREATOR OWNER               Subfolders and Files Only	              Modify
+       Administrator	              This Folder, Subfolders and Files	       Full Control
        Users	                     This Folder Only                          Modify
        Users\Group	              This Folder Only	                     Modify
-## File Permission. 
-       https://vuzion.cloud/latest-news/fslogix-improving-the-user-profile-experience-for-windows-virtual-desktop-wvd
-
-
 
 ## Enabling Fslogic for Shared Profiles in Azure Files
        https://aka.ms/fslogix_download
