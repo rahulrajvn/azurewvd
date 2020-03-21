@@ -29,15 +29,19 @@ Get-RdsAppGroup -TenantName "wvd-adf-demo" -HostPoolName "wvdhpapp"
 
 
 ## List all users who have been assigned to an app group
-Get-RdsAppGroupUser -TenantName "wvd-adf-demo" -HostPoolName "wvdhp" -AppGroupName "Desktop Application Group"
+Get-RdsAppGroupUser -TenantName "wvd-adf-demo" -HostPoolName "wvdhp" -AppGroupName "Desktop Application Group" | Format-Table -AutoSize
 
 
 ## List all users who have been assigned to an app group
-Get-RdsAppGroupUser -TenantName "wvd-adf-demo" -HostPoolName "wvdhpapp" -AppGroupName "adfapp"
+Get-RdsAppGroupUser -TenantName "wvd-adf-demo" -HostPoolName "wvdhpapp" -AppGroupName "adfapp"| Format-Table -AutoSize
 
 
+## Add the users to Personal Application Group
+Add-RdsAppGroupUser -TenantName "wvdadtenant" -HostPoolName "hostpool1" -AppGroupName "Desktop Application Group" -UserPrincipalName <userupn>
 
 
+## Remove the users to Personal Application Group
+Remove-RdsAppGroupUser -TenantName "wvdadtenant" -HostPoolName "hostpool1" -AppGroupName "Desktop Application Group" -UserPrincipalName &lt;upn>
 
 
 

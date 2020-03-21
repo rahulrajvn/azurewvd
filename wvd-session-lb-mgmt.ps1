@@ -12,7 +12,7 @@ Set-RdsSessionHost -TenantName "wvd-adf-demo" -HostPoolName "wvdhp" -Name "wvdhp
 
 
 ## List the RDS Session
-Get-RdsUserSession -TenantName "wvdadtenant" -HostPoolName "hostpool1"
+Get-RdsUserSession -TenantName "wvd-adf-demo" -HostPoolName "wvdhp"
 
 ## Disconnect the user session
 Disconnect-RdsUserSession -TenantName "wvdadtenant" -HostPoolName "hostpool1" -SessionHostName "hostpool1-1.adfolks.com" -SessionId 3
@@ -37,8 +37,6 @@ Set-RdsHostPool -TenantName "wvdadtenant" -HostPoolName "hostpool1" -DepthFirstL
 
 
 
-
-Add-RdsAppGroupUser <tenantname> <hostpoolname> "Desktop Application Group" -UserPrincipalName <userupn>
 
 ## Configure direct assignment for personal uses
 
