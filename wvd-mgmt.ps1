@@ -37,7 +37,7 @@ Remove-RdsTenant -Name "wvdadtenant"
 
 
 ## Admin access to the second person
-New-RdsRoleAssignment -TenantName wvdadtenantt -SignInName rahul@adfolks.com -RoleDefinitionName "RDS Owner"
+New-RdsRoleAssignment -TenantName "vdi-test-us" -SignInName arjun.n@adfolks.com -RoleDefinitionName "RDS Owner"
 
 ## Add user to App Group
 Add-RdsAppGroupUser wvd-adf-demo wvdhp "Desktop Application Group" -UserPrincipalName arathy.r@adfolks.com
